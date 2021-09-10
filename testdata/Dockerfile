@@ -3,7 +3,8 @@ FROM docker.io/library/golang:1.16 AS builder
 RUN mkdir /workspace/
 COPY main.go go.mod /workspace/
 WORKDIR /workspace/
-RUN CGO_ENABLED=0 go build -o serve-socket
+ENV CGO_ENABLED=0
+RUN go build -o serve-socket
 
 FROM docker.io/library/alpine:3.13.6
 
