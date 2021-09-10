@@ -24,5 +24,8 @@ jobs:
     - name: Build
       run: go build -v ./...
 
+    - name: Build Test Image
+      run: make build-test-image
+
     - name: Test
-      run: go test -v ./...
+      run: make test
