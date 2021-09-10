@@ -511,7 +511,9 @@ func withSSHAgent(t *testing.T) func() {
 				}()
 				err := agent.ServeAgent(signerAgent{signer}, conn)
 				if err != nil {
-					fmt.Fprintf(os.Stderr, "agent.ServeAgent() failed: %v\n", err)
+					if !errors.Is(err, net.ErrClosed) {
+						fmt.Fprintf(os.Stderr, "agent.ServeAgent() failed: %v\n", err)
+					}
 				}
 			}(conn)
 		}
