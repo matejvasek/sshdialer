@@ -1,0 +1,7 @@
+linters:
+  enable-all: true
+  disable:
+    - exhaustivestruct
+    - noctx
+    - paralleltest
+    - wsl
