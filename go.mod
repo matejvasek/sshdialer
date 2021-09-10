@@ -1,4 +1,4 @@
-module sshdialer
+module github.com/matejvasek/sshdialer
 
 go 1.16
 
