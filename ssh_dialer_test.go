@@ -448,7 +448,7 @@ func withBadKnownHosts(t *testing.T) func() {
 	}
 
 	return func() {
-
+		os.Remove(knownHosts)
 	}
 }
 
