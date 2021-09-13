@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/docker/go-connections/nat"
 	"github.com/matejvasek/sshdialer"
 	"io"
 	"io/ioutil"
@@ -28,9 +29,9 @@ import (
 	"golang.org/x/crypto/ssh/agent"
 )
 
-// IPs of test container.
-var containerIP4 string
-var containerIP6 string
+const containerIP4 = "127.0.0.1"
+const containerIP6 = "::"
+const testContainerName = "sshdialer-test-container"
 
 // We need to set up the test container running sshd against which we will run tests.
 // This code will populate global containerIP4 and containerIP6 variable
@@ -53,9 +54,18 @@ func TestMain(m *testing.M) {
 		return
 	}
 
-	ctr, err := cli.ContainerCreate(ctx, &container.Config{
+	cli.ContainerRemove(ctx, testContainerName, types.ContainerRemoveOptions{Force: true})
+
+	config := container.Config{
 		Image: "docker.io/mvasek/docker-ssh-helper-test-img",
-	}, nil, nil, nil, "")
+	}
+	hostConfig := container.HostConfig{
+		PortBindings: map[nat.Port][]nat.PortBinding {
+			"22/tcp":  {nat.PortBinding{HostIP: "localhost", HostPort: "22"}},
+			"2222/tcp":  {nat.PortBinding{HostIP: "localhost", HostPort: "2222"}},
+		},
+	}
+	ctr, err := cli.ContainerCreate(ctx, &config, &hostConfig, nil, nil, testContainerName)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "failed to create container: %v\n", err)
 		exit = 1
@@ -63,7 +73,7 @@ func TestMain(m *testing.M) {
 		return
 	}
 
-	defer cli.ContainerRemove(ctx, ctr.ID, types.ContainerRemoveOptions{})
+	defer cli.ContainerRemove(ctx, ctr.ID, types.ContainerRemoveOptions{Force: true})
 
 	ctrStartOpts := types.ContainerStartOptions{}
 	err = cli.ContainerStart(ctx, ctr.ID, ctrStartOpts)
@@ -75,17 +85,6 @@ func TestMain(m *testing.M) {
 	}
 
 	defer cli.ContainerKill(ctx, ctr.ID, "SIGKILL")
-
-	ctrJSON, err := cli.ContainerInspect(ctx, ctr.ID)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "failed to inspect container: %v\n", err)
-		exit = 1
-
-		return
-	}
-
-	containerIP4 = ctrJSON.NetworkSettings.IPAddress
-	containerIP6 = ctrJSON.NetworkSettings.GlobalIPv6Address
 
 	// wait for ssh container to start serving ssh
 	timeoutChan := time.After(time.Second * 10)
