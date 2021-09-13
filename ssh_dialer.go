@@ -131,12 +131,14 @@ func DialOverSSH(url *urlPkg.URL, identity, passPhrase string) (net.Conn, error)
 		Auth:            authMethods,
 		HostKeyCallback: hostKeyCallback,
 		HostKeyAlgorithms: []string{
-			ssh.KeyAlgoRSA,
-			ssh.KeyAlgoDSA,
+			ssh.KeyAlgoECDSA521,
 			ssh.KeyAlgoECDSA256,
 			ssh.KeyAlgoECDSA384,
-			ssh.KeyAlgoECDSA521,
 			ssh.KeyAlgoED25519,
+			ssh.SigAlgoRSASHA2512,
+			ssh.SigAlgoRSASHA2256,
+			ssh.KeyAlgoRSA,
+			ssh.KeyAlgoDSA,
 		},
 		Timeout: sshTimeout * time.Second,
 	}

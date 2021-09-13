@@ -381,7 +381,7 @@ func withKnowHosts(t *testing.T) func() {
 
 	// generate known_hosts
 	serverKeysDir := filepath.Join("testdata", "etc", "ssh")
-	for _, k := range []string{"dsa", "ecdsa", "ed25519", "rsa"} {
+	for _, k := range []string{"ecdsa"} {
 		keyPath := filepath.Join(serverKeysDir, fmt.Sprintf("ssh_host_%s_key.pub", k))
 		key, err := os.ReadFile(keyPath)
 		if err != nil {
