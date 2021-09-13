@@ -406,8 +406,8 @@ github.com/mailru/easyjson v0.0.0-20190614124828-94de47d64c63/go.mod h1:C1wdFJiN
 github.com/mailru/easyjson v0.0.0-20190626092158-b2ccc519800e/go.mod h1:C1wdFJiN94OJF2b5HbByQZoLdCWB1Yqtg26g4irojpc=
 github.com/mailru/easyjson v0.7.0/go.mod h1:KAzv3t3aY1NaHWoQz1+4F1ccyAH66Jk7yos7ldAVICs=
 github.com/marstr/guid v1.1.0/go.mod h1:74gB1z2wpxxInTG6yaqA7KrtM0NZ+RbrcqDvYHefzho=
-github.com/matejvasek/sshdialer v0.0.0-20210913130201-1403b38957a6 h1:SAZhAl+W1DFYHRZidDuEBLD8GUMM+li3vlbnMkSnvb8=
-github.com/matejvasek/sshdialer v0.0.0-20210913130201-1403b38957a6/go.mod h1:M/zTinV+cjb9ZgbP8h1uP65L6l+WAfHB8SuhrL4QgQc=
+github.com/matejvasek/sshdialer v0.0.0-20210913152922-123ac509f696 h1:PtZFjpazZPVny2tXXwnoTUDgsujpsQQPumv3Bx0dgF4=
+github.com/matejvasek/sshdialer v0.0.0-20210913152922-123ac509f696/go.mod h1:M/zTinV+cjb9ZgbP8h1uP65L6l+WAfHB8SuhrL4QgQc=
 github.com/mattn/go-colorable v0.0.9/go.mod h1:9vuHe8Xs5qXnSaW/c/ABM9alt+Vo+STaOChaDxuIBZU=
 github.com/mattn/go-isatty v0.0.4/go.mod h1:M+lRXTBqGeGNdLjl/ufCoiOlB5xdOkqRJdNxMWT7Zi4=
 github.com/mattn/go-runewidth v0.0.2/go.mod h1:LwmH8dsx7+W8Uxz3IHJYH5QSwggIsqBzpuz5H//U1FU=
